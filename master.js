@@ -1,10 +1,11 @@
 var r = 250,
+    miniR = 10,
     delta = 0.025,
     angle = Math.PI,
     graphOffset = 20,
     cSin = "#fd2f24",
     cCos = "#fed800",
-    c = "#983275";
+    c = "#ff6f01";
 
 var canvas = document.getElementById("canvas"),
     ctx = canvas.getContext("2d");
@@ -85,14 +86,14 @@ function ani() {
     ctx.closePath();
     ctx.restore();
 
-    point(v.x, 0, cCos, 8);
-    point(0, v.y, cSin, 8);
+    point(v.x, 0, cCos, miniR);
+    point(0, v.y, cSin, miniR);
 
     var x = WIDTH / 4 + graphOffset + scale(angle % (Math.PI * 2), 0, Math.PI * 2, 0, r * 2);
-    point(x, v.x, cCos, 8);
-    point(x, v.y, cSin, 8);
+    point(x, v.x, cCos, miniR);
+    point(x, v.y, cSin, miniR);
 
-    point(v.x, v.y, c, 10);
+    point(v.x, v.y, c, miniR * 1.2);
 
     angle += delta;
 
