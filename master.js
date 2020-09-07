@@ -1,7 +1,10 @@
-var r = 200,
+var r = 250,
     delta = 0.025,
-    angle = 0,
-    graphOffset = 20;
+    angle = Math.PI,
+    graphOffset = 20,
+    cSin = "#fd2f24",
+    cCos = "#fed800",
+    c = "#983275";
 
 var canvas = document.getElementById("canvas"),
     ctx = canvas.getContext("2d");
@@ -64,9 +67,32 @@ function ani() {
     ctx.stroke();
     ctx.restore();
 
-    point(0, v.y, "red", 8);
-    point(v.x, 0, "red", 8);
-    point(v.x, v.y, "lightblue", 10);
+    ctx.save();
+    ctx.lineWidth = 1;
+    ctx.translate(WIDTH / 4 + graphOffset, 0);
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+
+    for (var i = 0; i <= Math.PI * 2; i += delta) {
+        ctx.lineTo(scale(i, 0, Math.PI * 2, 0, r * 2), Math.sin(i) * r);
+    }
+    ctx.moveTo(0, 0);
+    for (var i = 0; i <= Math.PI * 2; i += delta) {
+        ctx.lineTo(scale(i, 0, Math.PI * 2, 0, r * 2), Math.cos(i) * r);
+    }
+
+    ctx.stroke();
+    ctx.closePath();
+    ctx.restore();
+
+    point(v.x, 0, cCos, 8);
+    point(0, v.y, cSin, 8);
+
+    var x = WIDTH / 4 + graphOffset + scale(angle % (Math.PI * 2), 0, Math.PI * 2, 0, r * 2);
+    point(x, v.x, cCos, 8);
+    point(x, v.y, cSin, 8);
+
+    point(v.x, v.y, c, 10);
 
     angle += delta;
 
